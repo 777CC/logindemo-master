@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Common.dart';
+
 class DetailPage extends StatelessWidget {
   DetailPage({Key key, @required this.item}) : super(key: key);
 
@@ -32,8 +34,13 @@ class DetailPage extends StatelessWidget {
               ),
             ),
             ElevatedButton.icon(
-                onPressed: () {
+                onPressed: () async {
                   print('Button Clicked.');
+                  final result = await Common.hubConnection.invoke(
+                      "UpdateEventLogAcknowledgeStatus",
+                      args: <Object>[1, 3]);
+                  print(result);
+                  //logger.log(LogLevel.Information, "Result: '$result");
                   Navigator.pop(context);
                 },
                 label: Text(

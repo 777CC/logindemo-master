@@ -1,3 +1,6 @@
+import 'package:signalr_client/signalr_client.dart';
+
 class Common {
-  static String ServerUrl = "";
+  static String serverUrl = "";
+  static HubConnection hubConnection;
 }

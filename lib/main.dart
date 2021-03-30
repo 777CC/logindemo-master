@@ -9,7 +9,7 @@ import 'dart:convert';
 import 'package:signalr_client/signalr_client.dart';
 
 Future<Album> fetchAlbum(String ip, String user, String pass) async {
-  Common.ServerUrl = ip;
+  Common.serverUrl = ip;
   final response =
       //await http.get(Uri.https('jsonplaceholder.typicode.com', 'albums/1'));
       await http.post(Uri.https(ip, 'api/account/login'),

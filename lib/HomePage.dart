@@ -19,13 +19,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    final hubConnection = HubConnectionBuilder()
-        .withUrl("https://" + Common.ServerUrl + "/OperatorHub")
+    Common.hubConnection = HubConnectionBuilder()
+        .withUrl("https://" + Common.serverUrl + "/OperatorHub")
         .build();
     // When the connection is closed, print out a message to the console.
-    hubConnection.onclose((error) => print("Connection Closed"));
-    hubConnection.start();
-    hubConnection.on("Alarm", _handleAClientProvidedFunction);
+    Common.hubConnection.onclose((error) => print("Connection Closed"));
+    Common.hubConnection.start();
+    Common.hubConnection.on("Alarm", _handleAClientProvidedFunction);
   }
 
   @override
