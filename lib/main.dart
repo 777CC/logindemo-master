@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:logindemo/Common.dart';
 
+import 'EventLog.dart';
 import 'HomePage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -147,7 +148,14 @@ class _LoginDemoState extends State<LoginDemo> {
                   futureAlbumtest = await fetchAlbum(
                       ipserver.text, userText.text, passText.text);
 
-                  Navigator.push(
+                  Common.hubConnection = HubConnectionBuilder()
+                      .withUrl("https://" + Common.serverUrl + "/OperatorHub")
+                      .build();
+                  // When the connection is closed, print out a message to the console.
+                  Common.hubConnection
+                      .onclose((error) => print("Connection Closed"));
+                  await Common.hubConnection.start();
+                  final isUpdate = await Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (_) => HomePage(futureAlbumtest)));

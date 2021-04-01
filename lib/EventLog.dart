@@ -3,9 +3,10 @@ class EventLog {
   int typeName;
   Type type;
   String data;
-  int fromDeviceId;
-  FromDevice fromDevice;
+  Null fromDeviceId;
+  Null fromDevice;
   int fromSubsystemId;
+  Null fromSubsystem;
   Null fromAccountId;
   Null fromAccount;
   String createdAt;
@@ -22,6 +23,7 @@ class EventLog {
       this.fromDeviceId,
       this.fromDevice,
       this.fromSubsystemId,
+      this.fromSubsystem,
       this.fromAccountId,
       this.fromAccount,
       this.createdAt,
@@ -31,44 +33,42 @@ class EventLog {
       this.acknowledgeStatus});
 
   EventLog.fromJson(Map<String, dynamic> json) {
-    id = json['Id'];
-    typeName = json['TypeName'];
-    type = json['Type'] != null ? new Type.fromJson(json['Type']) : null;
-    data = json['Data'];
-    fromDeviceId = json['FromDeviceId'];
-    fromDevice = json['FromDevice'] != null
-        ? new FromDevice.fromJson(json['FromDevice'])
-        : null;
-    fromSubsystemId = json['FromSubsystemId'];
-    fromAccountId = json['FromAccountId'];
-    fromAccount = json['FromAccount'];
-    createdAt = json['CreatedAt'];
-    lastModified = json['LastModified'];
-    toProcedureId = json['ToProcedureId'];
-    toProcedure = json['ToProcedure'];
-    acknowledgeStatus = json['AcknowledgeStatus'];
+    id = json['id'];
+    typeName = json['typeName'];
+    type = json['type'] != null ? new Type.fromJson(json['type']) : null;
+    data = json['data'];
+    fromDeviceId = json['fromDeviceId'];
+    fromDevice = json['fromDevice'];
+    fromSubsystemId = json['fromSubsystemId'];
+    fromSubsystem = json['fromSubsystem'];
+    fromAccountId = json['fromAccountId'];
+    fromAccount = json['fromAccount'];
+    createdAt = json['createdAt'];
+    lastModified = json['lastModified'];
+    toProcedureId = json['toProcedureId'];
+    toProcedure = json['toProcedure'];
+    acknowledgeStatus = json['acknowledgeStatus'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Id'] = this.id;
-    data['TypeName'] = this.typeName;
+    data['id'] = this.id;
+    data['typeName'] = this.typeName;
     if (this.type != null) {
-      data['Type'] = this.type.toJson();
+      data['type'] = this.type.toJson();
     }
-    data['Data'] = this.data;
-    data['FromDeviceId'] = this.fromDeviceId;
-    if (this.fromDevice != null) {
-      data['FromDevice'] = this.fromDevice.toJson();
-    }
-    data['FromSubsystemId'] = this.fromSubsystemId;
-    data['FromAccountId'] = this.fromAccountId;
-    data['FromAccount'] = this.fromAccount;
-    data['CreatedAt'] = this.createdAt;
-    data['LastModified'] = this.lastModified;
-    data['ToProcedureId'] = this.toProcedureId;
-    data['ToProcedure'] = this.toProcedure;
-    data['AcknowledgeStatus'] = this.acknowledgeStatus;
+    data['data'] = this.data;
+    data['fromDeviceId'] = this.fromDeviceId;
+    data['fromDevice'] = this.fromDevice;
+    data['fromSubsystemId'] = this.fromSubsystemId;
+    data['fromSubsystem'] = this.fromSubsystem;
+    data['fromAccountId'] = this.fromAccountId;
+    data['fromAccount'] = this.fromAccount;
+    data['createdAt'] = this.createdAt;
+    data['lastModified'] = this.lastModified;
+    data['toProcedureId'] = this.toProcedureId;
+    data['toProcedure'] = this.toProcedure;
+    data['acknowledgeStatus'] = this.acknowledgeStatus;
     return data;
   }
 }
@@ -92,105 +92,24 @@ class Type {
       this.control});
 
   Type.fromJson(Map<String, dynamic> json) {
-    name = json['Name'];
-    displayName = json['DisplayName'];
-    displayNameLocalized = json['DisplayNameLocalized'];
-    securityLevel = json['SecurityLevel'];
-    securityLevelRelation = json['SecurityLevelRelation'];
-    description = json['Description'];
-    control = json['Control'];
+    name = json['name'];
+    displayName = json['displayName'];
+    displayNameLocalized = json['displayNameLocalized'];
+    securityLevel = json['securityLevel'];
+    securityLevelRelation = json['securityLevelRelation'];
+    description = json['description'];
+    control = json['control'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Name'] = this.name;
-    data['DisplayName'] = this.displayName;
-    data['DisplayNameLocalized'] = this.displayNameLocalized;
-    data['SecurityLevel'] = this.securityLevel;
-    data['SecurityLevelRelation'] = this.securityLevelRelation;
-    data['Description'] = this.description;
-    data['Control'] = this.control;
-    return data;
-  }
-}
-
-class FromDevice {
-  int id;
-  int parentSystemId;
-  String externalId;
-  String name;
-  Null namelocalized;
-  int type;
-  Null typeRelation;
-  String userName;
-  String password;
-  Null atLocationId;
-  Null linkDeviceId;
-  Null stream;
-  Null latitude;
-  Null longitude;
-  Null description;
-  int status;
-  int control;
-
-  FromDevice(
-      {this.id,
-      this.parentSystemId,
-      this.externalId,
-      this.name,
-      this.namelocalized,
-      this.type,
-      this.typeRelation,
-      this.userName,
-      this.password,
-      this.atLocationId,
-      this.linkDeviceId,
-      this.stream,
-      this.latitude,
-      this.longitude,
-      this.description,
-      this.status,
-      this.control});
-
-  FromDevice.fromJson(Map<String, dynamic> json) {
-    id = json['Id'];
-    parentSystemId = json['ParentSystemId'];
-    externalId = json['ExternalId'];
-    name = json['Name'];
-    namelocalized = json['Namelocalized'];
-    type = json['Type'];
-    typeRelation = json['TypeRelation'];
-    userName = json['UserName'];
-    password = json['Password'];
-    atLocationId = json['AtLocationId'];
-    linkDeviceId = json['LinkDeviceId'];
-    stream = json['Stream'];
-    latitude = json['Latitude'];
-    longitude = json['Longitude'];
-    description = json['Description'];
-    status = json['Status'];
-    control = json['Control'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Id'] = this.id;
-    data['ParentSystemId'] = this.parentSystemId;
-    data['ExternalId'] = this.externalId;
-    data['Name'] = this.name;
-    data['Namelocalized'] = this.namelocalized;
-    data['Type'] = this.type;
-    data['TypeRelation'] = this.typeRelation;
-    data['UserName'] = this.userName;
-    data['Password'] = this.password;
-    data['AtLocationId'] = this.atLocationId;
-    data['LinkDeviceId'] = this.linkDeviceId;
-    data['Stream'] = this.stream;
-    data['Latitude'] = this.latitude;
-    data['Longitude'] = this.longitude;
-    data['Description'] = this.description;
-    data['Status'] = this.status;
-    data['Control'] = this.control;
+    data['name'] = this.name;
+    data['displayName'] = this.displayName;
+    data['displayNameLocalized'] = this.displayNameLocalized;
+    data['securityLevel'] = this.securityLevel;
+    data['securityLevelRelation'] = this.securityLevelRelation;
+    data['description'] = this.description;
+    data['control'] = this.control;
     return data;
   }
 }

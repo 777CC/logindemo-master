@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'Common.dart';
+import 'EventLog.dart';
 
 class DetailPage extends StatelessWidget {
   DetailPage({Key key, @required this.item}) : super(key: key);
 
-  final String item;
+  final EventLog item;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class DetailPage extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.all(20),
                       child: Text(
-                          "ชื่อ : ${item}\nนามสกุล : \nระดับชั้น : \nชื่อเล่น :"),
+                          "ชื่อ : ${item.data}\nนามสกุล : \nระดับชั้น : \nชื่อเล่น :"),
                     )),
               ),
             ),
@@ -38,10 +39,10 @@ class DetailPage extends StatelessWidget {
                   print('Button Clicked.');
                   final result = await Common.hubConnection.invoke(
                       "UpdateEventLogAcknowledgeStatus",
-                      args: <Object>[1, 3]);
+                      args: <Object>[item.id, 3]);
                   print(result);
                   //logger.log(LogLevel.Information, "Result: '$result");
-                  Navigator.pop(context);
+                  Navigator.pop(context, true);
                 },
                 label: Text(
                   'เสร็จสิ้น',
