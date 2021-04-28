@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:logindemo/EventLog.dart';
@@ -7,6 +9,7 @@ import 'Common.dart';
 import 'detail_page.dart';
 import 'main.dart';
 import 'package:flutter/src/widgets/async.dart' as state;
+import 'package:time_span/time_span.dart';
 
 Future<List<EventLog>> getProjectDetails() async {
   final result =
@@ -81,11 +84,30 @@ class _HomePageState extends State<HomePage> {
                 itemCount: projectSnap.data.length,
                 itemBuilder: (context, index) {
                   EventLog eventLog = projectSnap.data[index];
+                  TimeSpan timeSpan = TimeSpan('00:00', '00:04');
+                  if (eventLog.data != null) {
+                    List<String> split = eventLog.data.split('_');
+                    if (split.length == 2) {
+                      String end = split[0].substring(0, split[0].length - 3);
+                      timeSpan = TimeSpan('00:00', end);
+                    }
+                  }
+                  int mCount = 2;
 
+                  DateTime timeStamp = DateTime.parse(eventLog.createdAt);
+                  timeStamp.add(Duration(minutes: timeSpan.inMinutes));
+                  DateTime now = DateTime.now();
+                  print(timeStamp.millisecondsSinceEpoch);
+                  print(now.millisecondsSinceEpoch);
+                  bool isAfter = timeStamp.isAfter(now);
+                  if (isAfter) {
+                    mCount = timeStamp.difference(DateTime.now()).inMinutes;
+                  }
+                  String time = mCount.toString();
                   return ListTile(
                       leading: Icon(Icons.person),
                       //selected: items[index] == selectedItem,
-                      title: Text(eventLog.data != null ? eventLog.data : ""),
+                      title: Text(time),
                       onTap: () {
                         setState(() async {
                           // To remove the previously selected detail page
@@ -124,10 +146,10 @@ class _HomePageState extends State<HomePage> {
     // }
 
     if (parameters.length == 1) {
-      //final parsed =
-      //print(parameters[0]);
-      //final json = jsonDecode(parameters[0]);
       print(json.runtimeType);
+      //Map<String, dynamic> eventLog = jsonDecode(parameters[0]);
+      //EventLog log = EventLog.fromJson(eventLog);
+
       EventLog log = EventLog.fromJson(parameters[0]);
       print(log.type.displayName);
       setState(() {});

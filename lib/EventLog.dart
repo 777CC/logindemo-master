@@ -3,7 +3,7 @@ class EventLog {
   int typeName;
   Type type;
   String data;
-  Null fromDeviceId;
+  int fromDeviceId;
   Null fromDevice;
   int fromSubsystemId;
   Null fromSubsystem;

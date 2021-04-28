@@ -76,8 +76,8 @@ class _LoginDemoState extends State<LoginDemo> {
     var ipserver = TextEditingController();
     var userText = TextEditingController();
     var passText = TextEditingController();
-    //ipserver.text = "192.168.31.37:5001";//https://bacom.dyndns.org:5001
-    ipserver.text = "bacom.dyndns.org:5001";
+    ipserver.text = "192.168.31.37:5001"; //https://bacom.dyndns.org:5001
+    //ipserver.text = "bacom.dyndns.org:5001";
     userText.text = "admin";
     passText.text = "password";
     return Scaffold(
