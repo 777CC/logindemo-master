@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -43,11 +43,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Timer timer;
   String selectedItem;
   @override
   void initState() {
     super.initState();
     Common.hubConnection.on("EventAdded", _handleAClientProvidedFunction);
+    timer = Timer.periodic(Duration(minutes: 1), (Timer t) => setState(() {}));
   }
 
   @override
@@ -92,18 +94,24 @@ class _HomePageState extends State<HomePage> {
                       timeSpan = TimeSpan('00:00', end);
                     }
                   }
-                  int mCount = 2;
+                  int minuteCount = 2;
 
                   DateTime timeStamp = DateTime.parse(eventLog.createdAt);
-                  timeStamp.add(Duration(minutes: timeSpan.inMinutes));
+
+                  var timeadded =
+                      timeStamp.add(Duration(minutes: timeSpan.inMinutes));
                   DateTime now = DateTime.now();
+                  print(timeadded.millisecondsSinceEpoch);
                   print(timeStamp.millisecondsSinceEpoch);
                   print(now.millisecondsSinceEpoch);
-                  bool isAfter = timeStamp.isAfter(now);
+                  bool isAfter = timeadded.isAfter(now);
                   if (isAfter) {
-                    mCount = timeStamp.difference(DateTime.now()).inMinutes;
+                    minuteCount =
+                        timeadded.difference(DateTime.now()).inMinutes;
+                    print(minuteCount);
+                    print(timeadded.difference(DateTime.now()).inSeconds);
                   }
-                  String time = mCount.toString();
+                  String time = minuteCount.toString();
                   return ListTile(
                       leading: Icon(Icons.person),
                       //selected: items[index] == selectedItem,
